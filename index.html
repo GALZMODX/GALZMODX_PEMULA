@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GALZMODX - Official Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:active {
+            transform: scale(0.95);
+            border-color: #22c55e;
+        }
+        .btn-order {
+            background: linear-gradient(135deg, #a855f7 0%, #22c55e 100%);
+            color: black;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .btn-order:hover {
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+        }
+        .free-card {
+            border: 1px dashed rgba(34, 197, 94, 0.5);
+        }
+    </style>
+</head>
+<body class="pb-20">
+
+    <!-- Header / Banner Area -->
+    <div class="max-w-xl mx-auto px-4 pt-6">
+        <div class="rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(168,85,247,0.2)] mb-8 border border-purple-500/30">
+            <img src="b1c41db7-9902-4fa5-90e1-0f2df8cad74b.png" alt="GALZMODX Logo" class="w-full h-auto" onerror="this.src='https://placehold.co/600x400/000/a855f7?text=GALZMODX'">
+        </div>
+
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-black mb-1 text-white tracking-tight">GALZMODX</h1>
+            <p class="text-lg font-bold text-green-500 tracking-widest uppercase">GALZ IS GOOD</p>
+        </div>
+
+        <!-- JUAL SECTION -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-extrabold text-purple-400 mb-4 flex items-center">
+                <span class="mr-2 px-2 py-0.5 bg-purple-600 text-black rounded text-sm uppercase italic">JUAL</span>
+                APK & SERVICE
+            </h2>
+
+            <!-- Item: APK BUG SEMUA ADA -->
+            <div class="glass-card p-5">
+                <h3 class="text-lg font-bold text-white mb-1">APK BUG SEMUA ADA</h3>
+                <p class="text-xs text-gray-400 mb-4">Akses lengkap semua fitur bugging premium.</p>
+                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG ORDER APK BUG DONG (NAMA APK BUG)')" class="btn-order w-full py-3 rounded-xl shadow-lg">ORDER SEKARANG</button>
+            </div>
+
+            <!-- Item: MURBUG -->
+            <div class="glass-card p-5">
+                <h3 class="text-lg font-bold text-white mb-1">MURBUG</h3>
+                <p class="text-xs text-gray-400 mb-4">APK SIAP UPDATE (Paling Stabil)</p>
+                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG ORDER MURBUG')" class="btn-order w-full py-3 rounded-xl">BELI MURBUG</button>
+            </div>
+
+            <!-- Item: MURBAND -->
+            <div class="glass-card p-5">
+                <h3 class="text-lg font-bold text-white mb-1">MURBAND</h3>
+                <p class="text-xs text-gray-400 mb-4">MT FRESH + APK BAND</p>
+                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG ORDER MURBAND')" class="btn-order w-full py-3 rounded-xl">BELI MURBAND</button>
+            </div>
+
+            <!-- Item: MURUNBAND -->
+            <div class="glass-card p-5">
+                <h3 class="text-lg font-bold text-white mb-1">MURUNBAND</h3>
+                <p class="text-xs text-gray-400 mb-4">TEXT KEDIP + APK UNBAND</p>
+                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG MAU ORDER MURUNBAND')" class="btn-order w-full py-3 rounded-xl">BELI MURUNBAND</button>
+            </div>
+
+            <!-- Item: APK SURXRAT -->
+            <div class="glass-card p-5">
+                <h3 class="text-lg font-bold text-white mb-1">APK SURXRAT</h3>
+                <p class="text-xs text-gray-400 mb-4">Versi terbaru APK SURXRAT</p>
+                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG MAU ORDER APK SURXRAT')" class="btn-order w-full py-3 rounded-xl">BELI SURXRAT</button>
+            </div>
+
+            <!-- Item: APK AJMXRAT -->
+            <div class="glass-card p-5">
+                <h3 class="text-lg font-bold text-white mb-1">APK AJMXRAT</h3>
+                <p class="text-xs text-gray-400 mb-4">Versi terbaru APK AJMXRAT</p>
+                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG MAU ORDER AJMXRAT')" class="btn-order w-full py-3 rounded-xl">BELI AJMXRAT</button>
+            </div>
+
+            <!-- Item: JASA UNBAND PERMANEN -->
+            <div class="glass-card p-5">
+                <h3 class="text-lg font-bold text-white mb-1 uppercase">Jasa Unband Permanen</h3>
+                <p class="text-xs text-gray-400 mb-4">Proses cepat, garansi tembus.</p>
+                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG ORDER UNBAND PERMANEN TAPI BERAPA BANG?')" class="btn-order w-full py-3 rounded-xl">ORDER 5K-15K</button>
+            </div>
+
+            <!-- Item: WEB BUG GACOR -->
+            <div class="glass-card p-5 border-green-500/50">
+                <h3 class="text-lg font-bold text-green-400 mb-1">WEB BUG GACOR</h3>
+                <p class="text-xs text-gray-400 mb-4">TEMBUS BLOKIR ALL HANDPHONE</p>
+                <button onclick="kirimPesan('BANG ORDER TF KEMANA')" class="btn-order w-full py-3 rounded-xl">AMBIL WEB</button>
+            </div>
+        </div>
+
+        <!-- FREE SECTION -->
+        <div class="mt-12 space-y-4">
+            <h2 class="text-xl font-extrabold text-green-500 mb-4 flex items-center">
+                <span class="mr-2 px-2 py-0.5 bg-green-500 text-black rounded text-sm uppercase italic">FREE</span>
+                GIVEAWAY
+            </h2>
+
+            <div class="grid grid-cols-1 gap-3">
+                <div class="glass-card free-card p-4 flex justify-between items-center">
+                    <div>
+                        <p class="text-sm font-bold text-white uppercase">Unband Spam Kedip</p>
+                    </div>
+                    <button onclick="kirimPesan('assalamualaikum bang yang free masih ada,Abang nya siap?')" class="bg-white/10 px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/20">KLAIM</button>
+                </div>
+                <div class="glass-card free-card p-4 flex justify-between items-center">
+                    <div>
+                        <p class="text-sm font-bold text-white uppercase">Bug (Sender No Sendiri)</p>
+                    </div>
+                    <button onclick="kirimPesan('assalamualaikum bang yang free masih ada,Abang nya siap?')" class="bg-white/10 px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/20">KLAIM</button>
+                </div>
+                <div class="glass-card free-card p-4 flex justify-between items-center">
+                    <div>
+                        <p class="text-sm font-bold text-white uppercase">Nokos All Negara</p>
+                    </div>
+                    <button onclick="kirimPesan('assalamualaikum bang yang free masih ada,Abang nya siap?')" class="bg-white/10 px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/20">KLAIM</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-16 text-center">
+            <p class="text-2xl font-black italic text-white mb-6 uppercase tracking-tighter">GAS ORDER</p>
+            <a href="#" onclick="bukaTelegramDenganPesan('ASSALAMUALAIKUM BANG ADA APA AJA')" class="inline-block bg-[#229ED9] text-white px-10 py-4 rounded-full font-bold shadow-lg hover:bg-sky-500 transition-colors">
+                HUBUNGI ADMIN LANGSUNG
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Username Telegram yang dituju
+        const TELEGRAM_USERNAME = "GALZMODXZ";
+
+        // Fungsi untuk membuka chat Telegram dengan pesan (deep link tg://)
+        function kirimPesan(teks) {
+            const encodedText = encodeURIComponent(teks);
+            // Deep link Telegram: tg://resolve?domain=username&text=pesan
+            const tgDeepLink = `tg://resolve?domain=${TELEGRAM_USERNAME}&text=${encodedText}`;
+            // Fallback ke web jika deep link tidak berhasil
+            const webFallback = `https://t.me/${TELEGRAM_USERNAME}?text=${encodedText}`;
+            
+            // Coba buka deep link
+            window.location.href = tgDeepLink;
+            
+            // Jika dalam 500ms halaman masih di sini (deep link gagal), maka fallback ke web
+            setTimeout(() => {
+                window.location.href = webFallback;
+            }, 500);
+        }
+
+        // Fungsi khusus untuk tombol "HUBUNGI ADMIN LANGSUNG" dengan pesan tertentu
+        function bukaTelegramDenganPesan(pesan) {
+            const encodedText = encodeURIComponent(pesan);
+            const tgDeepLink = `tg://resolve?domain=${TELEGRAM_USERNAME}&text=${encodedText}`;
+            const webFallback = `https://t.me/${TELEGRAM_USERNAME}?text=${encodedText}`;
+            window.location.href = tgDeepLink;
+            setTimeout(() => {
+                window.location.href = webFallback;
+            }, 500);
+        }
+    </script>
+</body>
+</html>
