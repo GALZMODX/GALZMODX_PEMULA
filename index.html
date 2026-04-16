@@ -2,191 +2,286 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GALZMODX - Official Store</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Target Device - GALZ X RAT (PIN Dinamis)</title>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #000000;
-            color: #ffffff;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            border-radius: 16px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        body {
+            background: linear-gradient(145deg, #0a0f1e 0%, #05080f 100%);
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-        .glass-card:active {
-            transform: scale(0.95);
-            border-color: #22c55e;
+        .device-card {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(10, 20, 30, 0.85);
+            backdrop-filter: blur(4px);
+            border-radius: 2rem;
+            border: 1px solid cyan;
+            padding: 24px;
+            box-shadow: 0 0 20px rgba(0,255,255,0.2);
         }
-        .btn-order {
-            background: linear-gradient(135deg, #a855f7 0%, #22c55e 100%);
-            color: black;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.2s;
+        h1 {
+            color: #0ff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #2a4a55;
+            color: #ccf;
+        }
+        .label {
+            color: #8aaacc;
+        }
+        .status {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: #0a2a2a;
+            border-radius: 20px;
+            color: #0ff;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.7rem;
+            color: #588;
+        }
+
+        /* Lock Overlay */
+        .lock-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #1a0000, #000000);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: 'Courier New', monospace;
+            border: 3px solid #aa0000;
+            box-shadow: inset 0 0 50px rgba(255,0,0,0.3);
+        }
+        .lock-content {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 2rem;
+            border-radius: 2rem;
+            border: 2px solid #ff3333;
+            box-shadow: 0 0 40px rgba(255,0,0,0.6);
+            width: 90%;
+            max-width: 380px;
+        }
+        .lock-content h1 {
+            font-size: 2rem;
+            color: #ff3333;
+            text-shadow: 0 0 8px red;
+        }
+        .lock-sub-text {
+            color: #ff7777;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin: 15px 0;
+            border-top: 1px solid #aa3333;
+            border-bottom: 1px solid #aa3333;
+            padding: 10px;
+        }
+        .pin-input {
+            background: #2a0a0a;
+            border: 2px solid #ff4444;
+            color: #ff8888;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 12px;
+            width: 80%;
+            margin: 20px auto;
+            border-radius: 60px;
+            font-family: monospace;
+            letter-spacing: 5px;
+            outline: none;
+        }
+        .verify-btn {
+            background: #aa2222;
+            border: none;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 1rem;
             cursor: pointer;
         }
-        .btn-order:hover {
-            box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+        .verify-btn:hover {
+            background: #ff4444;
         }
-        .free-card {
-            border: 1px dashed rgba(34, 197, 94, 0.5);
+        .error-msg {
+            color: #ffaaaa;
+            background: #4a0000;
+            padding: 6px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 15px;
+        }
+        .lock-footer {
+            margin-top: 15px;
+            font-size: 0.7rem;
+            color: #aa5555;
         }
     </style>
 </head>
-<body class="pb-20">
+<body>
+<div class="device-card">
+    <h1>📱 TARGET DEVICE (SIMULASI)</h1>
+    <div class="info-row"><span class="label">Model Device:</span> <span id="deviceModel">-</span></div>
+    <div class="info-row"><span class="label">OS & Versi:</span> <span id="osVersion">-</span></div>
+    <div class="info-row"><span class="label">IP Publik:</span> <span id="ipAddress">Mengambil...</span></div>
+    <div class="info-row"><span class="label">Lokasi:</span> <span id="location">-</span></div>
+    <div class="info-row"><span class="label">User Agent:</span> <span id="userAgent" style="font-size:0.7rem;">-</span></div>
+    <div class="info-row"><span class="label">Baterai:</span> <span id="battery">--%</span></div>
+    <div class="status">🟢 STATUS: <span id="deviceStatus">Online</span></div>
+    <footer>⚠️ Simulasi target RAT - Hanya demo edukasi</footer>
+</div>
 
-    <!-- Header / Banner Area -->
-    <div class="max-w-xl mx-auto px-4 pt-6">
-        <div class="rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(168,85,247,0.2)] mb-8 border border-purple-500/30">
-            <img src="b1c41db7-9902-4fa5-90e1-0f2df8cad74b.png" alt="GALZMODX Logo" class="w-full h-auto" onerror="this.src='https://placehold.co/600x400/000/a855f7?text=GALZMODX'">
-        </div>
-
-        <div class="text-center mb-10">
-            <h1 class="text-4xl font-black mb-1 text-white tracking-tight">GALZMODX</h1>
-            <p class="text-lg font-bold text-green-500 tracking-widest uppercase">GALZ IS GOOD</p>
-        </div>
-
-        <!-- JUAL SECTION -->
-        <div class="space-y-4">
-            <h2 class="text-xl font-extrabold text-purple-400 mb-4 flex items-center">
-                <span class="mr-2 px-2 py-0.5 bg-purple-600 text-black rounded text-sm uppercase italic">JUAL</span>
-                APK & SERVICE
-            </h2>
-
-            <!-- Item: APK BUG SEMUA ADA -->
-            <div class="glass-card p-5">
-                <h3 class="text-lg font-bold text-white mb-1">APK BUG SEMUA ADA</h3>
-                <p class="text-xs text-gray-400 mb-4">Akses lengkap semua fitur bugging premium.</p>
-                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG ORDER APK BUG DONG (NAMA APK BUG)')" class="btn-order w-full py-3 rounded-xl shadow-lg">ORDER SEKARANG</button>
-            </div>
-
-            <!-- Item: MURBUG -->
-            <div class="glass-card p-5">
-                <h3 class="text-lg font-bold text-white mb-1">MURBUG</h3>
-                <p class="text-xs text-gray-400 mb-4">APK SIAP UPDATE (Paling Stabil)</p>
-                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG ORDER MURBUG')" class="btn-order w-full py-3 rounded-xl">BELI MURBUG</button>
-            </div>
-
-            <!-- Item: MURBAND -->
-            <div class="glass-card p-5">
-                <h3 class="text-lg font-bold text-white mb-1">MURBAND</h3>
-                <p class="text-xs text-gray-400 mb-4">MT FRESH + APK BAND</p>
-                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG ORDER MURBAND')" class="btn-order w-full py-3 rounded-xl">BELI MURBAND</button>
-            </div>
-
-            <!-- Item: MURUNBAND -->
-            <div class="glass-card p-5">
-                <h3 class="text-lg font-bold text-white mb-1">MURUNBAND</h3>
-                <p class="text-xs text-gray-400 mb-4">TEXT KEDIP + APK UNBAND</p>
-                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG MAU ORDER MURUNBAND')" class="btn-order w-full py-3 rounded-xl">BELI MURUNBAND</button>
-            </div>
-
-            <!-- Item: APK SURXRAT -->
-            <div class="glass-card p-5">
-                <h3 class="text-lg font-bold text-white mb-1">APK SURXRAT</h3>
-                <p class="text-xs text-gray-400 mb-4">Versi terbaru APK SURXRAT</p>
-                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG MAU ORDER APK SURXRAT')" class="btn-order w-full py-3 rounded-xl">BELI SURXRAT</button>
-            </div>
-
-            <!-- Item: APK AJMXRAT -->
-            <div class="glass-card p-5">
-                <h3 class="text-lg font-bold text-white mb-1">APK AJMXRAT</h3>
-                <p class="text-xs text-gray-400 mb-4">Versi terbaru APK AJMXRAT</p>
-                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG MAU ORDER AJMXRAT')" class="btn-order w-full py-3 rounded-xl">BELI AJMXRAT</button>
-            </div>
-
-            <!-- Item: JASA UNBAND PERMANEN -->
-            <div class="glass-card p-5">
-                <h3 class="text-lg font-bold text-white mb-1 uppercase">Jasa Unband Permanen</h3>
-                <p class="text-xs text-gray-400 mb-4">Proses cepat, garansi tembus.</p>
-                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG ORDER UNBAND PERMANEN TAPI BERAPA BANG?')" class="btn-order w-full py-3 rounded-xl">ORDER 5K-15K</button>
-            </div>
-
-            <!-- Item: WEB BUG GACOR -->
-            <div class="glass-card p-5 border-green-500/50">
-                <h3 class="text-lg font-bold text-green-400 mb-1">WEB BUG GACOR</h3>
-                <p class="text-xs text-gray-400 mb-4">TEMBUS BLOKIR ALL HANDPHONE</p>
-                <button onclick="kirimPesan('BANG ORDER TF KEMANA')" class="btn-order w-full py-3 rounded-xl">AMBIL WEB</button>
-            </div>
-        </div>
-
-        <!-- FREE SECTION -->
-        <div class="mt-12 space-y-4">
-            <h2 class="text-xl font-extrabold text-green-500 mb-4 flex items-center">
-                <span class="mr-2 px-2 py-0.5 bg-green-500 text-black rounded text-sm uppercase italic">FREE</span>
-                GIVEAWAY
-            </h2>
-
-            <div class="grid grid-cols-1 gap-3">
-                <div class="glass-card free-card p-4 flex justify-between items-center">
-                    <div>
-                        <p class="text-sm font-bold text-white uppercase">Unband Spam Kedip</p>
-                    </div>
-                    <button onclick="kirimPesan('assalamualaikum bang yang free masih ada,Abang nya siap?')" class="bg-white/10 px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/20">KLAIM</button>
-                </div>
-                <div class="glass-card free-card p-4 flex justify-between items-center">
-                    <div>
-                        <p class="text-sm font-bold text-white uppercase">Bug (Sender No Sendiri)</p>
-                    </div>
-                    <button onclick="kirimPesan('assalamualaikum bang yang free masih ada,Abang nya siap?')" class="bg-white/10 px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/20">KLAIM</button>
-                </div>
-                <div class="glass-card free-card p-4 flex justify-between items-center">
-                    <div>
-                        <p class="text-sm font-bold text-white uppercase">Nokos All Negara</p>
-                    </div>
-                    <button onclick="kirimPesan('assalamualaikum bang yang free masih ada,Abang nya siap?')" class="bg-white/10 px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/20">KLAIM</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-16 text-center">
-            <p class="text-2xl font-black italic text-white mb-6 uppercase tracking-tighter">GAS ORDER</p>
-            <a href="#" onclick="bukaTelegramDenganPesan('ASSALAMUALAIKUM BANG ADA APA AJA')" class="inline-block bg-[#229ED9] text-white px-10 py-4 rounded-full font-bold shadow-lg hover:bg-sky-500 transition-colors">
-                HUBUNGI ADMIN LANGSUNG
-            </a>
-        </div>
+<!-- Lock Overlay -->
+<div id="lockOverlay" class="lock-overlay" style="display: none;">
+    <div class="lock-content">
+        <h1>🔒 DEVICE LOCKED</h1>
+        <div class="lock-sub-text">GALZMODX IS GOOD</div>
+        <p style="color:#ff8888;">Masukkan PIN yang dikirim attacker</p>
+        <input type="password" id="pinInput" class="pin-input" maxlength="6" placeholder="******" inputmode="numeric">
+        <button id="verifyPinBtn" class="verify-btn">🔓 BUKA KUNCI</button>
+        <div id="pinError" class="error-msg" style="display: none;">❌ PIN salah! Coba lagi.</div>
+        <div class="lock-footer">* PIN ditentukan oleh attacker</div>
     </div>
+</div>
 
-    <script>
-        // Username Telegram yang dituju
-        const TELEGRAM_USERNAME = "GALZMODXZ";
+<script>
+    const deviceModelSpan = document.getElementById('deviceModel');
+    const osVersionSpan = document.getElementById('osVersion');
+    const ipSpan = document.getElementById('ipAddress');
+    const locationSpan = document.getElementById('location');
+    const userAgentSpan = document.getElementById('userAgent');
+    const batterySpan = document.getElementById('battery');
+    const deviceStatusSpan = document.getElementById('deviceStatus');
 
-        // Fungsi untuk membuka chat Telegram dengan pesan (deep link tg://)
-        function kirimPesan(teks) {
-            const encodedText = encodeURIComponent(teks);
-            // Deep link Telegram: tg://resolve?domain=username&text=pesan
-            const tgDeepLink = `tg://resolve?domain=${TELEGRAM_USERNAME}&text=${encodedText}`;
-            // Fallback ke web jika deep link tidak berhasil
-            const webFallback = `https://t.me/${TELEGRAM_USERNAME}?text=${encodedText}`;
-            
-            // Coba buka deep link
-            window.location.href = tgDeepLink;
-            
-            // Jika dalam 500ms halaman masih di sini (deep link gagal), maka fallback ke web
-            setTimeout(() => {
-                window.location.href = webFallback;
-            }, 500);
+    const lockOverlay = document.getElementById('lockOverlay');
+    const pinInput = document.getElementById('pinInput');
+    const verifyPinBtn = document.getElementById('verifyPinBtn');
+    const pinError = document.getElementById('pinError');
+
+    let currentPin = "2025"; // default fallback
+
+    async function fetchPublicIP() {
+        try {
+            const res = await fetch('https://api.ipify.org?format=json');
+            const data = await res.json();
+            return data.ip;
+        } catch(e) { return "192.168.1.xxx"; }
+    }
+    async function fetchLocationFromIP(ip) {
+        if (!ip || ip.includes('xxx')) return "Lokal (simulasi)";
+        try {
+            const res = await fetch(`https://ipapi.co/${ip}/json/`);
+            const data = await res.json();
+            if (data.city && data.country_name) return `${data.city}, ${data.country_name}`;
+            return "Tidak diketahui";
+        } catch(e) { return "Tidak dijangkau"; }
+    }
+    function setDeviceInfo() {
+        const ua = navigator.userAgent;
+        userAgentSpan.innerText = ua.length > 60 ? ua.substring(0,57)+"..." : ua;
+        let os = "Unknown", device = "PC";
+        if (ua.includes("Android")) { os = "Android"; device = "Smartphone"; }
+        else if (ua.includes("iPhone")) { os = "iOS"; device = "iPhone"; }
+        else if (ua.includes("Windows")) { os = "Windows"; device = "PC"; }
+        else if (ua.includes("Mac")) { os = "macOS"; device = "Mac"; }
+        deviceModelSpan.innerText = device;
+        osVersionSpan.innerText = os + " (demo)";
+    }
+    function updateBatterySim() {
+        let level = Math.floor(Math.random() * 60 + 20);
+        batterySpan.innerText = `${level}% (simulasi)`;
+        setInterval(() => {
+            let newLevel = Math.floor(Math.random() * 60 + 20);
+            batterySpan.innerText = `${newLevel}% (simulasi)`;
+        }, 30000);
+    }
+
+    function showLockScreen(pinFromAttacker) {
+        if (pinFromAttacker) currentPin = pinFromAttacker;
+        lockOverlay.style.display = 'flex';
+        pinInput.value = '';
+        pinError.style.display = 'none';
+        deviceStatusSpan.innerText = "TERKUNCI (RAT)";
+        deviceStatusSpan.style.color = "#ff6666";
+    }
+    function hideLockScreen() {
+        lockOverlay.style.display = 'none';
+        deviceStatusSpan.innerText = "Online";
+        deviceStatusSpan.style.color = "#0ff";
+        // Hapus perintah dari localStorage setelah unlock agar tidak lock ulang
+        localStorage.removeItem('rat_command');
+    }
+    function verifyPin() {
+        if (pinInput.value.trim() === currentPin) {
+            pinError.style.display = 'none';
+            hideLockScreen();
+        } else {
+            pinError.style.display = 'block';
+            pinInput.value = '';
+            pinInput.focus();
         }
+    }
 
-        // Fungsi khusus untuk tombol "HUBUNGI ADMIN LANGSUNG" dengan pesan tertentu
-        function bukaTelegramDenganPesan(pesan) {
-            const encodedText = encodeURIComponent(pesan);
-            const tgDeepLink = `tg://resolve?domain=${TELEGRAM_USERNAME}&text=${encodedText}`;
-            const webFallback = `https://t.me/${TELEGRAM_USERNAME}?text=${encodedText}`;
-            window.location.href = tgDeepLink;
-            setTimeout(() => {
-                window.location.href = webFallback;
-            }, 500);
+    // Mendengarkan perintah dari attacker (via localStorage)
+    function listenForCommands() {
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'rat_command' && event.newValue) {
+                try {
+                    const cmd = JSON.parse(event.newValue);
+                    if (cmd.action === 'lock') {
+                        const pin = cmd.pin || "2025";
+                        showLockScreen(pin);
+                    }
+                } catch(e) {}
+            }
+        });
+        // Cek saat halaman dimuat
+        const existing = localStorage.getItem('rat_command');
+        if (existing) {
+            try {
+                const cmd = JSON.parse(existing);
+                if (cmd.action === 'lock') showLockScreen(cmd.pin || "2025");
+            } catch(e) {}
         }
-    </script>
+    }
+
+    async function init() {
+        setDeviceInfo();
+        updateBatterySim();
+        const ip = await fetchPublicIP();
+        ipSpan.innerText = ip;
+        const loc = await fetchLocationFromIP(ip);
+        locationSpan.innerText = loc;
+        listenForCommands();
+    }
+    init();
+
+    verifyPinBtn.addEventListener('click', verifyPin);
+    pinInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') verifyPin(); });
+</script>
 </body>
 </html>
