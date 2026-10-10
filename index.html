@@ -246,24 +246,39 @@
             input.value = '';
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
+            // Konfigurasi Token Bot & ID Admin langsung di script (Aman untuk web statis Vercel)
+            const botToken = '8901304516:AAGJZhHB-uOasgrSR-5CAIaGKveS_2GqDLY';
+            const adminId = 7018595407;
+            const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+            const messageText = `💬 *Pesan Baru dari Website GALZ*\n\n👤 *Pesan:* ${text}\n🆔 *Session ID:* \`${sessionId}\``;
+
             try {
-                // Mengarah langsung ke panel server kamu dengan port 25568
-                const response = await fetch('https://danmauewe.r-cloud.my.id:25568/api/send-chat', {
+                const response = await fetch(telegramUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: text, sessionId: sessionId })
+                    body: JSON.stringify({
+                        chat_id: adminId,
+                        text: messageText,
+                        parse_mode: 'Markdown'
+                    })
                 });
 
                 const data = await response.json();
                 const adminBubble = document.createElement('div');
                 adminBubble.className = 'bg-slate-800/80 p-2.5 rounded-xl text-slate-300 max-w-[85%] mb-2';
-                adminBubble.textContent = data.success ? "Pesan terkirim ke Telegram Admin!" : "Gagal mengirim pesan.";
+                
+                if (data.ok) {
+                    adminBubble.textContent = "Pesan berhasil terkirim ke Telegram Admin!";
+                } else {
+                    adminBubble.textContent = "Gagal mengirim pesan ke Telegram.";
+                }
                 messagesContainer.appendChild(adminBubble);
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
             } catch (err) {
                 const errorBubble = document.createElement('div');
                 errorBubble.className = 'bg-red-950/80 border border-red-500/30 p-2.5 rounded-xl text-red-200 max-w-[85%] mb-2';
-                errorBubble.textContent = "Koneksi ke server gagal. Pastikan server panel di port 25568 sedang menyala.";
+                errorBubble.textContent = "Koneksi gagal. Periksa jaringan internet kamu.";
                 messagesContainer.appendChild(errorBubble);
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
             }
