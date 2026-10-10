@@ -56,7 +56,7 @@
             <h1 class="text-2xl font-bold tracking-tight text-white mb-1 flex items-center gap-2">
                 GALZX <i class="fa-solid fa-circle-check text-cyan-400 text-sm"></i>
             </h1>
-            <p class="text-xs text-slate-400 mb-6 font-medium">my porfile, akun akun asli galzx</p>
+            <p class="text-xs text-slate-400 mb-6 font-medium">my profile, akun akun asli galzx</p>
         </div>
 
         <div class="space-y-4 relative z-10">
@@ -140,18 +140,18 @@
                 <i class="fa-solid fa-eye text-xs text-slate-400 group-hover:text-white transition-colors"></i>
             </button>
 
-            <!-- Tombol Live Chat Admin -->
-            <button onclick="openChatModal()" class="glass-button flex items-center justify-between p-4 rounded-2xl w-full group border-cyan-500/40 bg-cyan-950/20">
+            <!-- Tombol Pilih Live Chat Admin -->
+            <button onclick="openChatChoiceModal()" class="glass-button flex items-center justify-between p-4 rounded-2xl w-full group border-cyan-500/40 bg-cyan-950/20">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-comments text-lg"></i>
                     </div>
                     <div class="text-left">
                         <div class="text-sm font-bold text-white">Live Chat Admin</div>
-                        <div class="text-xs text-cyan-300">Hubungkan via Bot Telegram</div>
+                        <div class="text-xs text-cyan-300">Pilih metode chat dengan admin</div>
                     </div>
                 </div>
-                <i class="fa-solid fa-paper-plane text-xs text-cyan-400 group-hover:translate-x-1 transition-transform"></i>
+                <i class="fa-solid fa-chevron-right text-xs text-cyan-400 group-hover:translate-x-1 transition-transform"></i>
             </button>
 
         </div>
@@ -189,12 +189,47 @@
         </div>
     </div>
 
-    <!-- Chat Admin Modal -->
+    <!-- Modal Pilihan Chat -->
+    <div id="chat-choice-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4 z-50">
+        <div class="glass-panel rounded-3xl p-6 max-w-sm w-full text-center relative space-y-3">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-comments text-cyan-400"></i> Pilih Cara Chat Admin
+                </h3>
+                <button onclick="closeChatChoiceModal()" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <p class="text-xs text-slate-400 mb-4">Silakan pilih metode komunikasi yang kamu inginkan di bawah ini:</p>
+            
+            <button onclick="openWebChat()" class="glass-button flex items-center gap-3 p-3.5 rounded-2xl w-full text-left group border-cyan-500/30">
+                <div class="w-10 h-10 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-globe text-lg"></i>
+                </div>
+                <div>
+                    <div class="text-sm font-bold text-white">Live Chat di Website</div>
+                    <div class="text-xs text-slate-400">Kirim pesan & foto langsung lewat web</div>
+                </div>
+            </button>
+
+            <a href="https://t.me/GALZX666NEW" target="_blank" rel="noopener noreferrer" class="glass-button flex items-center gap-3 p-3.5 rounded-2xl w-full text-left group border-sky-500/30">
+                <div class="w-10 h-10 rounded-xl bg-sky-500/20 flex items-center justify-center text-sky-400 group-hover:scale-110 transition-transform">
+                    <i class="fa-brands fa-telegram text-lg"></i>
+                </div>
+                <div>
+                    <div class="text-sm font-bold text-white">Chat via Bot Telegram</div>
+                    <div class="text-xs text-slate-400">Buka aplikasi Telegram pribadi</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Modal Ruang Chat Website (Dilengkapi Tombol Kirim Foto) -->
     <div id="chat-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4 z-50">
-        <div class="glass-panel rounded-3xl p-5 max-w-sm w-full flex flex-col h-[400px] relative">
+        <div class="glass-panel rounded-3xl p-5 max-w-sm w-full flex flex-col h-[420px] relative">
             <div class="flex justify-between items-center pb-3 border-b border-slate-700/50">
                 <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-circle text-emerald-400 text-[8px]"></i> Chat Admin GALZ
+                    <i class="fa-solid fa-circle text-emerald-400 text-[8px]"></i> Chat Admin via Web
                 </h3>
                 <button onclick="closeChatModal()" class="w-7 h-7 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white">
                     <i class="fa-solid fa-xmark text-xs"></i>
@@ -203,12 +238,24 @@
             
             <div id="chat-messages" class="flex-1 overflow-y-auto py-3 space-y-2 text-xs">
                 <div class="bg-slate-800/80 p-2.5 rounded-xl text-slate-300 max-w-[85%]">
-                    Halo! Ada yang bisa dibantu? Silakan ketik pesan kamu di bawah, nanti akan langsung masuk ke Telegram Admin.
+                    Halo! Kamu bisa kirim pesan teks atau klik ikon kamera 📷 untuk kirim bukti foto/transfer langsung ke Telegram Admin.
                 </div>
             </div>
 
-            <div class="pt-3 border-t border-slate-700/50 flex gap-2">
+            <!-- Input & Tombol Kirim Foto -->
+            <div class="pt-3 border-t border-slate-700/50 flex items-center gap-2">
+                <!-- Input File Gambar (Tersembunyi) -->
+                <input type="file" id="image-input" accept="image/*" class="hidden" onchange="sendImageMessage()">
+                
+                <!-- Tombol Ikon Kamera/Foto -->
+                <button onclick="document.getElementById('image-input').click()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 px-3 py-2 rounded-xl text-xs transition-colors" title="Kirim Foto">
+                    <i class="fa-solid fa-camera text-sm"></i>
+                </button>
+
+                <!-- Input Teks -->
                 <input type="text" id="chat-input" placeholder="Tulis pesan..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                
+                <!-- Tombol Kirim Teks -->
                 <button onclick="sendChatMessage()" class="bg-cyan-600 hover:bg-cyan-500 text-white px-3.5 py-2 rounded-xl text-xs font-semibold">
                     <i class="fa-solid fa-paper-plane"></i>
                 </button>
@@ -217,6 +264,9 @@
     </div>
 
     <script>
+        const botToken = '8901304516:AAGJZhHB-uOasgrSR-5CAIaGKveS_2GqDLY';
+        const adminId = 7018595407;
+
         function toggleTelegramMenu() {
             document.getElementById('telegram-submenu').classList.toggle('hidden');
             document.getElementById('tg-arrow').classList.toggle('rotate-180');
@@ -224,20 +274,34 @@
 
         function openQrisModal() { document.getElementById('qris-modal').classList.remove('hidden'); document.getElementById('qris-modal').classList.add('flex'); }
         function closeQrisModal() { document.getElementById('qris-modal').classList.remove('flex'); document.getElementById('qris-modal').classList.add('hidden'); }
-        function openChatModal() { document.getElementById('chat-modal').classList.remove('hidden'); document.getElementById('chat-modal').classList.add('flex'); }
+        
+        function openChatChoiceModal() { document.getElementById('chat-choice-modal').classList.remove('hidden'); document.getElementById('chat-choice-modal').classList.add('flex'); }
+        function closeChatChoiceModal() { document.getElementById('chat-choice-modal').classList.remove('flex'); document.getElementById('chat-choice-modal').classList.add('hidden'); }
+
+        function openWebChat() {
+            closeChatChoiceModal();
+            document.getElementById('chat-modal').classList.remove('hidden');
+            document.getElementById('chat-modal').classList.add('flex');
+        }
         function closeChatModal() { document.getElementById('chat-modal').classList.remove('flex'); document.getElementById('chat-modal').classList.add('hidden'); }
 
+        function getSessionId() {
+            let sessionId = localStorage.getItem('galz_session');
+            if (!sessionId) {
+                sessionId = 'USER-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+                localStorage.setItem('galz_session', sessionId);
+            }
+            return sessionId;
+        }
+
+        // Kirim Pesan Teks
         async function sendChatMessage() {
             const input = document.getElementById('chat-input');
             const messagesContainer = document.getElementById('chat-messages');
             const text = input.value.trim();
             if (!text) return;
 
-            let sessionId = localStorage.getItem('galz_session');
-            if (!sessionId) {
-                sessionId = 'USER-' + Math.random().toString(36).substring(2, 8).toUpperCase();
-                localStorage.setItem('galz_session', sessionId);
-            }
+            const sessionId = getSessionId();
 
             const userBubble = document.createElement('div');
             userBubble.className = 'bg-cyan-600/80 text-white p-2.5 rounded-xl max-w-[85%] ml-auto text-right mb-2';
@@ -246,42 +310,80 @@
             input.value = '';
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-            // Konfigurasi Token Bot & ID Admin langsung di script (Aman untuk web statis Vercel)
-            const botToken = '8901304516:AAGJZhHB-uOasgrSR-5CAIaGKveS_2GqDLY';
-            const adminId = 7018595407;
             const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
-
-            const messageText = `💬 *Pesan Baru dari Website GALZ*\n\n👤 *Pesan:* ${text}\n🆔 *Session ID:* \`${sessionId}\``;
+            const messageText = `💬 *Pesan Teks dari Web*\n\n👤 *Pesan:* ${text}\n🆔 *Session ID:* \`${sessionId}\``;
 
             try {
                 const response = await fetch(telegramUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: adminId,
-                        text: messageText,
-                        parse_mode: 'Markdown'
-                    })
+                    body: JSON.stringify({ chat_id: adminId, text: messageText, parse_mode: 'Markdown' })
                 });
 
                 const data = await response.json();
                 const adminBubble = document.createElement('div');
                 adminBubble.className = 'bg-slate-800/80 p-2.5 rounded-xl text-slate-300 max-w-[85%] mb-2';
-                
-                if (data.ok) {
-                    adminBubble.textContent = "Pesan berhasil terkirim ke Telegram Admin!";
-                } else {
-                    adminBubble.textContent = "Gagal mengirim pesan ke Telegram.";
-                }
+                adminBubble.textContent = data.ok ? "Pesan terkirim ke Telegram Admin!" : "Gagal mengirim pesan.";
                 messagesContainer.appendChild(adminBubble);
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
             } catch (err) {
-                const errorBubble = document.createElement('div');
-                errorBubble.className = 'bg-red-950/80 border border-red-500/30 p-2.5 rounded-xl text-red-200 max-w-[85%] mb-2';
-                errorBubble.textContent = "Koneksi gagal. Periksa jaringan internet kamu.";
-                messagesContainer.appendChild(errorBubble);
+                showErrorBubble(messagesContainer, "Koneksi gagal.");
+            }
+        }
+
+        // Kirim Pesan Foto / Bukti Transfer
+        async function sendImageMessage() {
+            const fileInput = document.getElementById('image-input');
+            const messagesContainer = document.getElementById('chat-messages');
+            if (fileInput.files.length === 0) return;
+
+            const file = fileInput.files[0];
+            const sessionId = getSessionId();
+
+            // Tampilkan preview foto di web
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imgBubble = document.createElement('div');
+                imgBubble.className = 'bg-cyan-600/80 p-2 rounded-xl max-w-[85%] ml-auto mb-2 text-right';
+                imgBubble.innerHTML = `<img src="${e.target.result}" class="w-40 rounded-lg mx-auto mb-1"><span class="text-[10px] text-white">Foto terkirim</span>`;
+                messagesContainer.appendChild(imgBubble);
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
             }
+            reader.readAsDataURL(file);
+
+            // Kirim foto ke Telegram Admin
+            const formData = new FormData();
+            formData.append('chat_id', adminId);
+            formData.append('photo', file);
+            formData.append('caption', `🖼️ *Bukti Foto/Transfer dari Web*\n🆔 *Session ID:* \`${sessionId}\``);
+            formData.append('parse_mode', 'Markdown');
+
+            try {
+                const telegramUrl = `https://api.telegram.org/bot${botToken}/sendPhoto`;
+                const response = await fetch(telegramUrl, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                const adminBubble = document.createElement('div');
+                adminBubble.className = 'bg-slate-800/80 p-2.5 rounded-xl text-slate-300 max-w-[85%] mb-2';
+                adminBubble.textContent = data.ok ? "Foto berhasil dikirim ke Telegram Admin!" : "Gagal mengirim foto.";
+                messagesContainer.appendChild(adminBubble);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            } catch (err) {
+                showErrorBubble(messagesContainer, "Gagal mengunggah foto.");
+            }
+
+            fileInput.value = ''; // Reset input file
+        }
+
+        function showErrorBubble(container, text) {
+            const errorBubble = document.createElement('div');
+            errorBubble.className = 'bg-red-950/80 border border-red-500/30 p-2.5 rounded-xl text-red-200 max-w-[85%] mb-2';
+            errorBubble.textContent = text;
+            container.appendChild(errorBubble);
+            container.scrollTop = container.scrollHeight;
         }
 
         function downloadQris() { window.open("https://files.catbox.moe/3unjk8.jpg", '_blank'); }
